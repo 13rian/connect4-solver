@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+
+  	<groupId>ch.wenkst.connect4</groupId>
+  	<artifactId>connect4_nply</artifactId>
+  	<version>1.0.0</version>
+  	<packaging>jar</packaging>
+
+  	<name>connect4_nply</name>
+  	<url>http://maven.apache.org</url>
+
+  	<properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<java.version>11</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		
+		<!-- define the variables for the build -->
+    	<mainClass>ch.wenkst.connect4.connect4_nply.Main_Solver_Nply</mainClass>
+    	<assemblyDescriptor>assembly/assembly.xml</assemblyDescriptor>
+    	<tgzName>con4</tgzName>
+  	</properties>
+
+  	<dependencies>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.13</version>
+		    <scope>test</scope>
+		</dependency>
+    	
+    	
+    	<!-- bridge for the jul logger -->
+    	<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jul-to-slf4j</artifactId>
+		    <version>2.0.0-alpha0</version>
+		</dependency>
+		
+		
+		<!-- csv-parser -->
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-csv</artifactId>
+		    <version>1.6</version>
+		</dependency>
+		
+		
+		<!-- configuration files -->
+		<dependency>
+		    <groupId>com.typesafe</groupId>
+		    <artifactId>config</artifactId>
+		    <version>1.3.3</version>
+		</dependency>
+		
+		
+		<!-- collections -->		
+		<dependency>
+		    <groupId>it.unimi.dsi</groupId>
+		    <artifactId>fastutil</artifactId>
+		    <version>8.3.0</version>
+		</dependency>
+		
+		
+		<!-- ================== other projects ================= -->
+		<!-- sw-utils --> 
+		<dependency>
+			<groupId>ch.wenkst</groupId>
+			<artifactId>sw-utils</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+  	</dependencies>
+  	
+  	
+  	
+  	  	<!-- build the project -->	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+    	<plugins>
+				
+			<!-- copy all dependencies in the lib folder -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-dependency-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <id>copy-dependencies</id>
+			            <phase>prepare-package</phase>
+			            <goals>
+			                <goal>copy-dependencies</goal>
+			            </goals>
+			            <configuration>
+			                <outputDirectory>
+			                    ${project.build.directory}/lib
+			                </outputDirectory>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			
+			
+			<!-- create the executable jar file -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-jar-plugin</artifactId>
+			    <configuration>
+			        <archive>
+			            <manifest>
+			                <addClasspath>true</addClasspath>
+			                <classpathPrefix>lib/</classpathPrefix>
+			                <mainClass>
+			                    ${mainClass}
+			                </mainClass>
+			            </manifest>
+			        </archive>
+			    </configuration>
+			</plugin>
+			
+			
+			<!-- assemble to project in a tgz file -->
+		    <plugin>
+		      	<groupId>org.apache.maven.plugins</groupId>
+		      	<artifactId>maven-assembly-plugin</artifactId>
+		      	<configuration>
+		        	<descriptor>${assemblyDescriptor}</descriptor>
+		        	<finalName>${tgzName}</finalName>
+		      	</configuration>
+		      	<executions>
+		        	<execution>
+		          		<phase>package</phase>
+		          		<goals>
+		            		<goal>single</goal>
+		          		</goals>
+		        	</execution>
+		      	</executions>
+		    </plugin>
+    	</plugins>
+	</build>   	
+</project>

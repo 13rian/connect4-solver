@@ -1,0 +1,11 @@
+.classpath
+.settings
+.project
+
+/bin
+/log
+/lib
+/build
+/target
+/positions
+/transposition_table_csvs

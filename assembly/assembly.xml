@@ -1,0 +1,36 @@
+<assembly>
+    <id>bundle</id> 
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    
+    <fileSets>
+    	<!-- project jar -->
+    	<fileSet>
+       		<directory>${project.build.directory}</directory>
+       		<includes>
+      			<include>*.jar</include>
+    		</includes>
+      		<outputDirectory>/</outputDirectory>
+        </fileSet>
+    
+    	<!-- libraries -->
+        <fileSet>
+       		<directory>${project.build.directory}/lib</directory>
+      		<outputDirectory>lib</outputDirectory>
+        </fileSet>
+        
+        <!-- configuration -->
+        <fileSet>
+       		<directory>${basedir}/config</directory>
+      		<outputDirectory>config</outputDirectory>
+        </fileSet>
+        
+        <!-- positions -->
+        <fileSet>
+       		<directory>${basedir}/positions</directory>
+      		<outputDirectory>positions</outputDirectory>
+        </fileSet>
+	</fileSets>
+</assembly>
