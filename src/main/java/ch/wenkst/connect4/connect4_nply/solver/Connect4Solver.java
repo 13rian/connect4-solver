@@ -1,6 +1,8 @@
 package ch.wenkst.connect4.connect4_nply.solver;
 
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -9,6 +11,7 @@ import org.apache.commons.csv.CSVRecord;
 import ch.wenkst.connect4.connect4_nply.configuration.AppConfig;
 import ch.wenkst.connect4.connect4_nply.game.MoveSorter;
 import ch.wenkst.connect4.connect4_nply.game.Position;
+import ch.wenkst.connect4.connect4_nply.game.SolvedPosition;
 import ch.wenkst.connect4.connect4_nply.game.TranspositionTable;
 import ch.wenkst.sw_utils.logging.Log;
 import it.unimi.dsi.fastutil.longs.Long2ByteOpenHashMap;
@@ -259,4 +262,43 @@ public class Connect4Solver {
 		tpTable.put(position.toKey(), (byte) (alpha - AppConfig.minScore + 1)); // save the upper bound of the position
 		return alpha;
 	}	
+	
+	
+	
+	/**
+	 * finds all optimal moves of the passed connect4 position
+	 * @param position	the connect4 position
+	 * @return 			a list with all optimal moves
+	 */
+	public SolvedPosition findOptimalMoves(Position position) {		
+		// save all the moves and the score in the position to solve
+		List<Integer> moveList = new ArrayList<>();				// holds all possible moves in the position to solve
+		List<Integer> scoreList = new ArrayList<>();			// caches the scores of all possible moves
+		
+		// play each legal move and strongly solve for the score, the move(s) with the best score is the optimal move
+		for (int col=0; col<AppConfig.boardWidth; col++) {
+			if (position.legalMove(col)) {
+				Position positionClone = new Position(position);
+				byte moveCount = position.getMoveCount();
+				if (position.isWinningMove(col)) { 
+					int score =  -((AppConfig.boardSize+1 - moveCount) / 2); 	// opponent score
+					scoreList.add(score);
+					moveList.add(col);
+					continue;
+				}
+				
+				positionClone.play(col);
+				moveList.add(col);
+				
+				// solve the position
+				int score = solve(positionClone);
+				scoreList.add(score);
+			}
+		}
+		
+		SolvedPosition solvedPosition = new SolvedPosition(position);
+		solvedPosition.addResult(moveList, scoreList);
+		
+		return solvedPosition;
+	}
 }

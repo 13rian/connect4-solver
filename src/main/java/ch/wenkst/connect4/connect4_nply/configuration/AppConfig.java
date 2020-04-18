@@ -43,6 +43,7 @@ public class AppConfig {
 	public static final String dirPositions = Utils.getWorkDir() + sep + "positions" + sep;
 	public static final String dirSolvedPos = Utils.getWorkDir() + sep + "solved_pos" + sep;
 	public static final String dirTranspositionTable = Utils.getWorkDir() + sep + "transposition_table_csvs" + sep;
+	public static final String dirTestSet = Utils.getWorkDir() + File.separator + "test_set" + File.separator;
 	
 	
 	// board parameters
