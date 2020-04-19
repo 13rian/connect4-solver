@@ -1,4 +1,4 @@
-package ch.wenkst.connect4.connect4_nply;
+package ch.wenkst.connect4.connect4_nply.position;
 
 import java.io.File;
 import java.util.ArrayList;

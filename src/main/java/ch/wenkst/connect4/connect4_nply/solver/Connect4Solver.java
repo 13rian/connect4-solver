@@ -71,35 +71,40 @@ public class Connect4Solver {
 			columnOrder[col] = AppConfig.boardWidth/2 + (int) Math.ceil((double) col/2) * sign;
 		}
 
-		// initialize the 8ply table map where either side cannot win with their next move
-		log.fine("start to read in the " + nplyTranspositions + "ply position table");
-		try {
-			nplyPositionMap = new Long2ByteOpenHashMap();
-			CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader();
-			FileReader fileReader = new FileReader(AppConfig.dirTranspositionTable + "connect4_" + nplyTranspositions + "ply.csv");
-			CSVParser csvFileParser = new CSVParser(fileReader, csvFileFormat);
+		// initialize the nply table map where either side cannot win with their next move
+		if (nplyTranspositions > 0) {
+			log.fine("start to read in the " + nplyTranspositions + "ply position table");
+			try {
+				nplyPositionMap = new Long2ByteOpenHashMap();
+				CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader();
+				FileReader fileReader = new FileReader(AppConfig.dirTranspositionTable + "connect4_" + nplyTranspositions + "ply.csv");
+				CSVParser csvFileParser = new CSVParser(fileReader, csvFileFormat);
 
 
-			// add all positions to the position map
-			for (CSVRecord csvRecord : csvFileParser) {	
-				long position = Long.parseLong(csvRecord.get("position"));
-				long diskMask = Long.parseLong(csvRecord.get("disk_mask"));
-				byte score = Byte.parseByte(csvRecord.get("score"));
+				// add all positions to the position map
+				for (CSVRecord csvRecord : csvFileParser) {	
+					long position = Long.parseLong(csvRecord.get("position"));
+					long diskMask = Long.parseLong(csvRecord.get("disk_mask"));
+					byte score = Byte.parseByte(csvRecord.get("score"));
 
-				Position p = new Position(position, diskMask);
-				nplyPositionMap.put(p.toKey(), score);
+					Position p = new Position(position, diskMask);
+					nplyPositionMap.put(p.toKey(), score);
+				}
+
+				// close the reader resources
+				if (csvFileParser != null) csvFileParser.close();
+				if (fileReader != null) fileReader.close();
+				log.fine("finsihed creating the " + nplyTranspositions + "ply position table, size: " + nplyPositionMap.size());
+
+			} catch (Exception e) {
+				log.severe("error creating the " + nplyTranspositions + "ply position table: ", e);
+				log.info("the solver will not use any nply transposition table");
+				nplyPositionMap = null;
+				nplyTranspositions = -1;
 			}
-
-			// close the reader resources
-			if (csvFileParser != null) csvFileParser.close();
-			if (fileReader != null) fileReader.close();
-			log.fine("finsihed creating the " + nplyTranspositions + "ply position table, size: " + nplyPositionMap.size());
-
-		} catch (Exception e) {
-			log.severe("error creating the " + nplyTranspositions + "ply position table: ", e);
-			log.info("the solver will not use any nply transposition table");
-			nplyPositionMap = null;
-			nplyTranspositions = -1;
+		
+		} else {
+			log.info("solver will not use any nply transposition table");
 		}
 	}
 	

@@ -5,12 +5,14 @@ import java.util.List;
 
 import ch.wenkst.connect4.connect4_nply.configuration.AppConfig;
 import ch.wenkst.connect4.connect4_nply.game.Position;
+import ch.wenkst.connect4.connect4_nply.position.TestPosition;
+import ch.wenkst.connect4.connect4_nply.position.TestPositionParser;
 import ch.wenkst.connect4.connect4_nply.solver.Connect4Solver;
 import ch.wenkst.sw_utils.Utils;
 import ch.wenkst.sw_utils.logging.Log;
 
-public class MainSolverTest {
-	private static Log log = Log.getLogger(MainSolverTest.class);
+public class MainSolverSpeedTest {
+	private static Log log = Log.getLogger(MainSolverSpeedTest.class);
 	
 	public String testFilePath = Utils.getWorkDir() + File.separator + "test" + File.separator + "5_begin_medium.txt";
 		
@@ -27,9 +29,9 @@ public class MainSolverTest {
 		System.out.println(position);
 		
 		Position mirroredPosition = position.mirror();
-		System.out.println(position.mirror());
+		System.out.println(mirroredPosition.mirror());
 		
-		MainSolverTest app = new MainSolverTest();
+		MainSolverSpeedTest app = new MainSolverSpeedTest();
 		app.executeTest();
 	}
 	

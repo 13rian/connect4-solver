@@ -1,4 +1,4 @@
-package ch.wenkst.connect4.connect4_nply;
+package ch.wenkst.connect4.connect4_nply.position;
 
 import ch.wenkst.connect4.connect4_nply.game.Position;
 import ch.wenkst.sw_utils.logging.Log;
