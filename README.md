@@ -26,9 +26,9 @@ A Connect4 position is represented with two integers. The the board is represent
 5 12 19 26 33 40 47  
 4 11 18 25 32 39 46  
 3 10 17 24 31 38 45  
-2  9 16 23 30 37 44  
-1  8 15 22 29 36 43  
-0  7 14 21 28 35 42  
+2 &nbsp; 9 16 23 30 37 44  
+1 &nbsp; 8 15 22 29 36 43  
+0 &nbsp; 7 14 21 28 35 42  
 
 The transposition table csv-file contains two columns position and disk_mask. The position is the integer that represents all the disks of the current player and the disk_mask represents all played disks using the representation above. 
 
