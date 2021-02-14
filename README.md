@@ -2,7 +2,7 @@
 
 
 ## Goal of this Project
-This is the implementation of a Connect 4 solver. The positions are solved with the negamax algorithm. I created this solver to have a test set for the [AlphaZero implementation of Connect4](https://github.com/13rian/alpha-zero-connect4). The solver is based on [this](http://blog.gamesolver.org/) tutorial. The following strategies are used to solve the Connect4 positions:
+This is the implementation of a Connect 4 solver. The positions are solved with the negamax algorithm. I created this solver to have a test set for the [AlphaZero Framework Project](https://github.com/13rian/alpha-zero-framework). The solver is based on [this](http://blog.gamesolver.org/) tutorial. The following strategies are used to solve the Connect4 positions:
 - Negamax (version of minimax where you assume that the opponent score is the negative value of your score)  
 - Alpha-Beta-Pruning   
 - Ordering of the move exploration order based on a score function. The score is equal to the number of created
