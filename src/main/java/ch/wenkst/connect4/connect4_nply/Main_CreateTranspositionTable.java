@@ -19,7 +19,7 @@ public class Main_CreateTranspositionTable {
 		Main_CreateTranspositionTable app = new Main_CreateTranspositionTable();
 		
 		// initialize the logger
-		Log.initLogger(AppConfig.dirLoggerConfig);
+		Log.initFromFile(AppConfig.dirLoggerConfig);
 		log.fine("starting connect4 " + app.nply + " ply solver");
 		
 		app.startApp();

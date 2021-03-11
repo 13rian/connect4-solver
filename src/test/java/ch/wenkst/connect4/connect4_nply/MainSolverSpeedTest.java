@@ -19,7 +19,7 @@ public class MainSolverSpeedTest {
 
 	public static void main(String[] args) {
 		// initialize the logger
-		Log.initLogger(AppConfig.dirLoggerConfig);
+		Log.initFromFile(AppConfig.dirLoggerConfig);
 		log.fine("Starting the solver test");
 		
 		// test the mirrored position

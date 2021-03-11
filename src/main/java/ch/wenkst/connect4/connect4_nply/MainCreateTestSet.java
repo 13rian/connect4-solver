@@ -18,7 +18,7 @@ public class MainCreateTestSet {
 	
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		// initialize the logger
-		Log.initLogger(AppConfig.dirLoggerConfig);		
+		Log.initFromFile(AppConfig.dirLoggerConfig);		
 		MainCreateTestSet app = new MainCreateTestSet();
 		TestSetCreator testSetCreator = new TestSetCreator(app.nPositions2, app.nPositions3, app.nPositions4_8, app.nPositions9_40);
 				

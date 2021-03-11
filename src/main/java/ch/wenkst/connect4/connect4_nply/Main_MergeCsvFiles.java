@@ -30,7 +30,7 @@ public class Main_MergeCsvFiles {
 		Main_MergeCsvFiles app = new Main_MergeCsvFiles();
 		
 		// initialize the logger
-		Log.initLogger(AppConfig.dirLoggerConfig);
+		Log.initFromFile(AppConfig.dirLoggerConfig);
 		log.fine("starting connect4 n ply position merging");
 		
 		app.startApp();
